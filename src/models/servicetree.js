@@ -1,5 +1,6 @@
 import request from '../utils/request'
 import { effects } from 'redux-saga';
+import { delay } from 'dva/saga';
 
 export default {
     namespace: "servicetree",
@@ -43,19 +44,32 @@ export default {
             }
         },
 
-        updateBranchNodeStatus(state, {payload}){
+        updateBranchNodeStatus(state, { payload }) {
+            console.log(payload)
             return {
                 ...state,
                 branchNodeList: state.branchNodeList.map((branchNode) => {
-                    if(branchNode.id === payload.id) {
+                    if (branchNode.id === payload.id) {
                         branchNode = {
                             ...branchNode,
                             status: payload.status
                         }
-                        if(branchNode.status === 'running'){
+                        if (branchNode.status === 'running') {
                             branchNode = {
                                 ...branchNode,
                                 iconType: "clock-circle"
+                            }
+                        }
+                        else if (branchNode.status === 'failure') {
+                            branchNode = {
+                                ...branchNode,
+                                iconType: "close-circle"
+                            }
+                        }
+                        else if (branchNode.status === 'success') {
+                            branchNode = {
+                                ...branchNode,
+                                iconType: "check-circle"
                             }
                         }
                     }
@@ -137,10 +151,11 @@ export default {
             })
         },
 
-        *getBranchNodeStatus({ payload }, {call,put}) {
-            const response = yield call(request,{
-                url: '/api/repos/typhoon/'+payload.name+'/builds/'+payload.commitnumber,
-                options:{
+        *getBranchNodeStatus({ payload }, { call, put }) {
+            while(1){
+            const response = yield call(request, {
+                url: '/api/repos/typhoon/' + payload.name + '/builds/' + payload.commitnumber,
+                options: {
                     headers: {
                         'Authorization': 'Bearer jK72ueqbrjm2TlADbYeZXTngd1UALBGY',
                         'content-type': 'application/json'
@@ -149,12 +164,14 @@ export default {
             });
             console.log(response)
             yield put({
-                type:'updateBranchNodeStatus',
-                payload:{
+                type: 'updateBranchNodeStatus',
+                payload: {
                     id: payload.id,
                     status: response.status
                 }
             })
+            yield call(delay,3000)
         }
+        },
     }
 }
