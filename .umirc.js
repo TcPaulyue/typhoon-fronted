@@ -1,8 +1,10 @@
-import { IConfig } from 'umi-types';
-
+//import { IConfig } from 'umi-types';
 // ref: https://umijs.org/config/
-const config: IConfig =  {
+
+
+export default {
   treeShaking: true,
+
   "proxy": {
     "/api": {
       "target": "http://114.212.189.141:30170/",
@@ -15,7 +17,7 @@ const config: IConfig =  {
       antd: true,
       dva: true,
       dynamicImport: false,
-      title: 'typhoon-microservices-typhoontree',
+      title: 'typhoon-tree',
       dll: false,
       
       routes: {
@@ -30,5 +32,3 @@ const config: IConfig =  {
     }],
   ],
 }
-
-export default config;
