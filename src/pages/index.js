@@ -40,7 +40,9 @@ class tree extends Component {
           {
             selector: 'node',
             style: {
-              'background-color': '#66ccff'
+              'background-color': '#66ccff',
+              'shape': 'data(type)',
+              'label': 'data(name)'
             }
           },
           {
@@ -52,9 +54,11 @@ class tree extends Component {
           {
             selector: 'edge',
             style: {
+              'curve-style': 'bezier',
               'width': 3,
-              'line-color': '#66ccff',
               'target-arrow-shape': 'triangle',
+              'line-color': '#61bffc',
+              'target-arrow-color': '#61bffc'
             }
           }
         ],

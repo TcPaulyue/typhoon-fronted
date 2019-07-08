@@ -1,5 +1,5 @@
 import request from '../utils/request'
-
+// import services from './serviceData.json'
 const DataClean = (services) => {
     const nodeMap = new Map()
     const parentMap = new Map()
@@ -16,15 +16,35 @@ const DataClean = (services) => {
     const elements = []
     serviceGraph.nodes.map((item) => {
         if (item.data.nodeType === 'service') {
-            nodeMap.set(item.data.service, item.data.id)
-        }
-    })
-    serviceGraph.nodes.map((item) => {
-        if (item.data.nodeType === 'service') {
+            nodeMap.set(item.data.service, item.data.service)
             elements.push({
                 group: 'nodes',
                 data: {
-                    id: item.data.id
+                    id: item.data.service,
+                }
+            })
+        }
+    })
+    serviceGraph.nodes.map((item) => {
+        if (item.data.isRoot === true) {
+            elements.push({
+                group: 'nodes',
+                data: {
+                    id: item.data.id,
+                    type: 'ellipse',
+                    name: 'Root'
+                }
+            })
+        }
+        if (item.data.nodeType === 'service') {
+            const parentId = nodeMap.get(item.data.service)
+            elements.push({
+                group: 'nodes',
+                data: {
+                    id: item.data.id,
+                    parent: parentId,
+                    name: item.data.service,
+                    type: 'triangle'
                 }
             })
         }
@@ -33,13 +53,18 @@ const DataClean = (services) => {
             elements.push(parentId === undefined ? {
                 group: 'nodes',
                 data: {
-                    id: item.data.id
+                    id: item.data.id,
+                    name: item.data.workload,
+                    type: 'rectangle',
+                    name: item.data.workload
                 }
             } : {
                     group: 'nodes',
                     data: {
                         id: item.data.id,
-                        parent: parentId
+                        parent: parentId,
+                        type: 'rectangle',
+                        name: item.data.workload
                     }
                 })
             if (parentId !== undefined) {
@@ -48,18 +73,12 @@ const DataClean = (services) => {
         }
     })
     serviceGraph.edges.map((item) => {
-        const sourceParent = parentMap.get(item.data.source)
-        const targetParent = parentMap.get(item.data.target)
-        if(sourceParent===item.data.target||targetParent===item.data.source){
-            return
-        }
         elements.push({
             group: 'edges',
             data: item.data
         })
     })
     console.log(elements)
-    debugger
     return elements
 }
 
@@ -79,16 +98,18 @@ export default {
     },
     effects:{
         *fetchGraphData(_,{call,put}){
+            let authString = 'admin:admin'
+            let headers = new Headers()
+            headers.set('Authorization', 'Basic ' + btoa(authString))
             const response = yield call(request,{
-                url: '/services',
+                url: '/kiali/api/namespaces/graph?edges=requestsPercentage&graphType=versionedApp&namespaces=typhoon&injectServiceNodes=true&duration=60s&pi=15000&layout=dagre',
                 options: {
-                    headers: {
-                        'Private-Token': 'hJMKkXgcTniyzWP_Prjo',
-                        'content-type': 'application/json'
-                    }
+                    headers: headers
                 }
             })
+            debugger
             const elements = DataClean(response)
+            // const elements = DataClean(services)
             debugger
             yield put({type: 'updateElements',payload: elements})
         }

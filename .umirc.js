@@ -9,6 +9,10 @@ export default {
     "/api": {
       "target": "http://114.212.189.141:30170/",
       "changeOrigin": true,
+    },
+    "/kiali": {
+      "target": "http://114.212.189.141:31597/",
+      "changeOrigin": true
     }
   },
   plugins: [
