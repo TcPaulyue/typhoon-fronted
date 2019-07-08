@@ -83,6 +83,7 @@ class tree extends Component {
   }
 
   onBranchNodeStatus = (keys) => {
+    console.log("wwwwwwwwwww")
     this.props.dispatch({
       type: "servicetree/getBranchNodeStatus", payload: keys
     })
@@ -102,6 +103,10 @@ class tree extends Component {
 
   componentDidMount() {
     this.renderCytoscapeElement();
+    // setInterval(function () {
+    //   console.log(this.props)
+    //   this.onBranchNodeStatus(this.props.clickedBranchNodeInfo)
+    // }, 1000)
   }
 
 
@@ -112,8 +117,6 @@ class tree extends Component {
 
 
   componentDidUpdate(prevProps) {
-    console.log(prevProps.clickedBranchNodeInfo)
-    console.log(this.props.clickedBranchNodeInfo)
       if(this.props.clickedBranchNodeInfo.id !== prevProps.clickedBranchNodeInfo.id){
         this.onBranchNodeStatus(this.props.clickedBranchNodeInfo)
       }
@@ -159,14 +162,11 @@ class tree extends Component {
               clickName={branchNodeInfo.name}
               buttonClicked={(e, id, name) => {
                 this.onBranchNodeSelect(id, name)
-              //   if(this.props.mark === 'false'){
-              //     console.log(this.props.branchNodeList)
-              //   this.props.branchNodeList.forEach((branchNode) => {
-              //     if (branchNode.id===name) {
-              //       this.onBranchNodeStatus(branchNode)
-              //     }
-              //   })
-              // }
+                  // this.props.branchNodeList.forEach((branchNode) => {
+                  //   if (branchNode.id===name) {
+                  //     this.onBranchNodeStatus(branchNode)
+                  //   }
+                  // })
               }}>
               <Icon
                 type={branchNodeInfo.iconType}
