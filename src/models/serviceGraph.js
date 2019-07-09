@@ -1,4 +1,5 @@
 import request from '../utils/request'
+import { delay } from 'dva/saga';
 // import services from './serviceData.json'
 const DataClean = (services) => {
     const nodeMap = new Map()
@@ -7,7 +8,7 @@ const DataClean = (services) => {
     const edges = services.elements.edges
     const dirtyNodes = services.elements.nodes
     const nodes = dirtyNodes.filter((item) => !item.data.isUnused)
-    const serviceGraph =  {
+    const serviceGraph = {
         nodes: nodes,
         edges: edges
     }
@@ -88,30 +89,32 @@ export default {
     state: {
         elements: []
     },
-    reducers:{
-        updateElements(state,{payload}){
+    reducers: {
+        updateElements(state, { payload }) {
             return {
                 ...state,
                 elements: payload
             }
         }
     },
-    effects:{
-        *fetchGraphData(_,{call,put}){
+    effects: {
+        *fetchGraphData(_, { call, put }) {
             let authString = 'admin:admin'
             let headers = new Headers()
             headers.set('Authorization', 'Basic ' + btoa(authString))
-            const response = yield call(request,{
-                url: '/kiali/api/namespaces/graph?edges=requestsPercentage&graphType=versionedApp&namespaces=typhoon&injectServiceNodes=true&duration=60s&pi=15000&layout=dagre',
-                options: {
-                    headers: headers
-                }
-            })
-            debugger
-            const elements = DataClean(response)
-            // const elements = DataClean(services)
-            debugger
-            yield put({type: 'updateElements',payload: elements})
+            while (true) {
+                const response = yield call(request, {
+                    url: '/kiali/api/namespaces/graph?edges=requestsPercentage&graphType=versionedApp&namespaces=typhoon&injectServiceNodes=true&duration=60s&pi=15000&layout=dagre',
+                    options: {
+                        headers: headers
+                    }
+                })
+                console.log(elements)
+                const elements = DataClean(response)
+                debugger
+                yield put({ type: 'updateElements', payload: elements })
+                yield call(delay,3000)
+            }
         }
     }
 }

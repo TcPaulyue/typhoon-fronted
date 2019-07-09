@@ -3,8 +3,9 @@ import { Icon, Tree, Timeline, Row, Col, Button } from 'antd';
 import { connect } from 'dva';
 import CustomButton from '../components/CustomButton';
 import cytoscape from 'cytoscape';
-import coseBilkent from 'cytoscape-cose-bilkent';
-cytoscape.use(coseBilkent);
+// import coseBilkent from 'cytoscape-cose-bilkent';
+import cola from 'cytoscape-cola'
+cytoscape.use(cola);
 
 const { TreeNode } = Tree;
 
@@ -33,8 +34,9 @@ class tree extends Component {
         container: document.getElementById('cy'),
 
         layout: {
-          name: 'cose-bilkent',
-          animate: false
+          name: 'cola',
+          animate: false,
+          randomize: false
         },
         style: [
           {
