@@ -57,6 +57,19 @@ export default class TestPage extends Component {
           ]
         }
       });
+      this.cy.edges().animate({
+        style: {
+          'curve-style': 'bezier',
+          'width': 3,
+          'target-arrow-shape': 'triangle',
+          'target-arrow-color': '#33bffc',
+          'line-color': '#33bffc',
+          'line-dash-pattern': [3,6],
+          'line-dash-offset': '24'
+        }
+      },{
+        duration: 5000
+      })
   }
 
   componentDidMount() {

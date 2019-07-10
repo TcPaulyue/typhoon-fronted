@@ -44,7 +44,9 @@ class tree extends Component {
             style: {
               'background-color': '#66ccff',
               'shape': 'data(type)',
-              'label': 'data(name)'
+              'label': 'data(name)',
+              'width': 20,
+              'height': 20
             }
           },
           {
