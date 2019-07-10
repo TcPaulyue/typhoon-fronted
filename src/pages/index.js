@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Tree, Timeline, Row, Col, Button } from 'antd';
+import { Icon, Tree, Timeline, Row, Col, Badge, Descriptions } from 'antd';
 import { connect } from 'dva';
 import CustomButton from '../components/CustomButton';
 import cytoscape from 'cytoscape';
@@ -79,7 +79,7 @@ class tree extends Component {
   }
 
   onBranchNodeStatus = (keys) => {
-    console.log("wwwwwwwwwww")
+    console.log(keys)
     this.props.dispatch({
       type: "servicetree/getBranchNodeStatus", payload: keys
     })
@@ -99,10 +99,6 @@ class tree extends Component {
 
   componentDidMount() {
     this.renderCytoscapeElement();
-    // setInterval(function () {
-    //   console.log(this.props)
-    //   this.onBranchNodeStatus(this.props.clickedBranchNodeInfo)
-    // }, 1000)
   }
 
 
@@ -113,10 +109,13 @@ class tree extends Component {
 
 
   componentDidUpdate(prevProps) {
-      if(this.props.clickedBranchNodeInfo.id !== prevProps.clickedBranchNodeInfo.id){
-        this.onBranchNodeStatus(this.props.clickedBranchNodeInfo)
-      }
+    console.log(this.props.clickedBranchNodeInfo)
+    if (this.props.clickedBranchNodeInfo.id !== prevProps.clickedBranchNodeInfo.id) {
+      this.onBranchNodeStatus(this.props.clickedBranchNodeInfo)
+    }
   }
+
+
   render() {
     let cyStyle = {
       height: '550px',
@@ -149,6 +148,7 @@ class tree extends Component {
     );
 
 
+
     const branchNodeListDisplay = this.props.branchNodeList.map((branchNodeInfo) => {
       return (
         <Timeline.Item key={branchNodeInfo.id}
@@ -158,24 +158,32 @@ class tree extends Component {
               clickName={branchNodeInfo.name}
               buttonClicked={(e, id, name) => {
                 this.onBranchNodeSelect(id, name)
-                  // this.props.branchNodeList.forEach((branchNode) => {
-                  //   if (branchNode.id===name) {
-                  //     this.onBranchNodeStatus(branchNode)
-                  //   }
-                  // })
+                // this.props.branchNodeList.forEach((branchNode) => {
+                //   if (branchNode.id===name) {
+                //     this.onBranchNodeStatus(branchNode)
+                //   }
+                // })
               }}>
               <Icon
                 type={branchNodeInfo.iconType}
-                theme="twoTone"
-                twoToneColor="#52c41a"
+                //theme="twoTone"
+                //twoToneColor="#52c41a"
                 style={{ fontSize: '20px' }}
               />
             </CustomButton>
           }
         >
-          id: {branchNodeInfo.id}<br />
-          create_time:{branchNodeInfo.createtime}<br />
-          status: {branchNodeInfo.status}
+          <Descriptions  title={branchNodeInfo.short_id} border size="small" column={1}>
+            <Descriptions.Item label="Time">{branchNodeInfo.createtime}</Descriptions.Item>
+            <Descriptions.Item label="Status" span={3}>
+              <Badge status={branchNodeInfo.badgestatus} text={branchNodeInfo.status} />
+            </Descriptions.Item>
+            <Descriptions.Item label="Details">
+              clone: {branchNodeInfo.detailedstatus !== null ? branchNodeInfo.detailedstatus.clone : "null"}<br />
+              publish: {branchNodeInfo.detailedstatus !== null ? branchNodeInfo.detailedstatus.publish : "null"}<br />
+              deploy: {branchNodeInfo.detailedstatus !== null ? branchNodeInfo.detailedstatus.deploy : "null"}
+            </Descriptions.Item>
+          </Descriptions>
         </Timeline.Item>
       )
     })

@@ -25,6 +25,7 @@ export default {
         },
 
         updateBranchNodeCommitNumber(state, { payload }) {
+            console.log(payload)
             return {
                 ...state,
                 branchNodeList: state.branchNodeList.map((branchNode) => {
@@ -45,31 +46,35 @@ export default {
         },
 
         updateBranchNodeStatus(state, { payload }) {
-            console.log(payload)
+            //console.log(payload.detailedstatus.clone)
             return {
                 ...state,
                 branchNodeList: state.branchNodeList.map((branchNode) => {
                     if (branchNode.id === payload.id) {
                         branchNode = {
                             ...branchNode,
-                            status: payload.status
+                            status: payload.status,
+                            detailedstatus: payload.detailedstatus
                         }
                         if (branchNode.status === 'running') {
                             branchNode = {
                                 ...branchNode,
-                                iconType: "clock-circle"
+                                iconType: "loading",
+                                badgestatus: "processing"
                             }
                         }
                         else if (branchNode.status === 'failure') {
                             branchNode = {
                                 ...branchNode,
-                                iconType: "close-circle"
+                                iconType: "close-circle",
+                                badgestatus: "error"
                             }
                         }
                         else if (branchNode.status === 'success') {
                             branchNode = {
                                 ...branchNode,
-                                iconType: "check-circle"
+                                iconType: "check-circle",
+                                badgestatus: "success"
                             }
                         }
                     }
@@ -79,6 +84,7 @@ export default {
         }
 
     },
+    
     effects: {
         *getServiceList(_, { call, put }) {
             const response = yield call(request, {
@@ -115,12 +121,15 @@ export default {
                 type: 'updateBranch', payload: response.map((value) => {
                     return {
                         id: value.id,
+                        short_id: value.short_id,
                         title: value.title,
                         createtime: value.created_at,
                         parent_id: value.parent_ids,
                         name: payload[0],
                         iconType: "setting",
-                        status: "NULL",
+                        status: "pending",
+                        badgestatus: "default",
+                        detailedstatus: null,
                         commitnumber: "1"
                     }
                 })
@@ -152,26 +161,32 @@ export default {
         },
 
         *getBranchNodeStatus({ payload }, { call, put }) {
-            while(1){
-            const response = yield call(request, {
-                url: '/api/repos/typhoon/' + payload.name + '/builds/' + payload.commitnumber,
-                options: {
-                    headers: {
-                        'Authorization': 'Bearer jK72ueqbrjm2TlADbYeZXTngd1UALBGY',
-                        'content-type': 'application/json'
+            while (1) {
+                const response = yield call(request, {
+                    url: '/api/repos/typhoon/' + payload.name + '/builds/' + payload.commitnumber,
+                    options: {
+                        headers: {
+                            'Authorization': 'Bearer jK72ueqbrjm2TlADbYeZXTngd1UALBGY',
+                            'content-type': 'application/json'
+                        }
                     }
-                }
-            });
-            console.log(response)
-            yield put({
-                type: 'updateBranchNodeStatus',
-                payload: {
-                    id: payload.id,
-                    status: response.status
-                }
-            })
-            yield call(delay,3000)
-        }
+                });
+                console.log(response)
+                yield put({
+                    type: 'updateBranchNodeStatus',
+                    payload: {
+                        id: payload.id,
+                        status: response.status,
+                        detailedstatus: {
+                            // {branchNodeInfo.detailedstatus !== null ? branchNodeInfo.detailedstatus.clone : "NULL"}<br />
+                            clone:  response.stages[0].steps[0].status,
+                            publish: response.stages[0].steps[1].status,
+                            deploy: response.stages[0].steps[2].status 
+                        }
+                    }
+                })
+                yield call(delay, 5000)
+            }
         },
     }
 }
