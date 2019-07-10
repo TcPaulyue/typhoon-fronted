@@ -1,5 +1,5 @@
 import request from '../utils/request'
-import { effects } from 'redux-saga';
+// import { effects } from 'redux-saga';
 import { delay } from 'dva/saga';
 
 export default {

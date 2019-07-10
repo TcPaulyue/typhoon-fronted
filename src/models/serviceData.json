@@ -1,0 +1,452 @@
+{
+    "timestamp": 1562506728,
+    "duration": 60,
+    "graphType": "versionedApp",
+    "elements": {
+      "nodes": [
+        {
+          "data": {
+            "id": "58ea764f64ed1520ace38f5eff24e1a2",
+            "nodeType": "service",
+            "namespace": "typhoon",
+            "app": "admin-server",
+            "service": "admin-server",
+            "destServices": [
+              {
+                "namespace": "typhoon",
+                "name": "admin-server"
+              }
+            ],
+            "traffic": [
+              {
+                "protocol": "http",
+                "rates": {
+                  "httpIn": "0.04",
+                  "httpOut": "0.04"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "data": {
+            "id": "4644c480a475285e60f5e9a615331b1f",
+            "nodeType": "app",
+            "namespace": "typhoon",
+            "workload": "admin-server-v1",
+            "app": "admin-server",
+            "version": "v1",
+            "destServices": [
+              {
+                "namespace": "typhoon",
+                "name": "admin-server"
+              }
+            ],
+            "traffic": [
+              {
+                "protocol": "http",
+                "rates": {
+                  "httpIn": "0.04",
+                  "httpOut": "0.11"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "data": {
+            "id": "2d9aae72de2c64d8afa6d278eb0cd80e",
+            "nodeType": "service",
+            "namespace": "typhoon",
+            "app": "auth-service",
+            "service": "auth-service",
+            "destServices": [
+              {
+                "namespace": "typhoon",
+                "name": "auth-service"
+              }
+            ],
+            "traffic": [
+              {
+                "protocol": "http",
+                "rates": {
+                  "httpIn": "0.04",
+                  "httpOut": "0.04"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "data": {
+            "id": "88fd3930f5124e18c5be8e77897d2731",
+            "nodeType": "app",
+            "namespace": "typhoon",
+            "workload": "auth-service-v1",
+            "app": "auth-service",
+            "version": "v1",
+            "destServices": [
+              {
+                "namespace": "typhoon",
+                "name": "auth-service"
+              }
+            ],
+            "traffic": [
+              {
+                "protocol": "http",
+                "rates": {
+                  "httpIn": "0.04",
+                  "httpOut": "0.04"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "data": {
+            "id": "3b6b425aa72a943a5ed7359330116816",
+            "nodeType": "app",
+            "namespace": "typhoon",
+            "workload": "demo-v1",
+            "app": "demo",
+            "version": "v1",
+            "isUnused": true
+          }
+        },
+        {
+          "data": {
+            "id": "04a111ebaebafa768f3ba016b385896e",
+            "nodeType": "service",
+            "namespace": "typhoon",
+            "app": "discovery-server",
+            "service": "discovery-server",
+            "destServices": [
+              {
+                "namespace": "typhoon",
+                "name": "discovery-server"
+              }
+            ],
+            "traffic": [
+              {
+                "protocol": "http",
+                "rates": {
+                  "httpIn": "0.11",
+                  "httpOut": "0.11"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "data": {
+            "id": "ce3cce5da6915fa273acde66a0dca3c9",
+            "nodeType": "app",
+            "namespace": "typhoon",
+            "workload": "discovery-server-v1",
+            "app": "discovery-server",
+            "version": "v1",
+            "destServices": [
+              {
+                "namespace": "typhoon",
+                "name": "discovery-server"
+              }
+            ],
+            "traffic": [
+              {
+                "protocol": "http",
+                "rates": {
+                  "httpIn": "0.11"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "data": {
+            "id": "f07d14c64fd0c1fdbfd9d8b2c1a1f848",
+            "nodeType": "app",
+            "namespace": "typhoon",
+            "workload": "nanjingweather-v1",
+            "app": "nanjingweather",
+            "version": "v1",
+            "isUnused": true
+          }
+        },
+        {
+          "data": {
+            "id": "2a89cf45316cfd210d7a31fa9e45787d",
+            "nodeType": "app",
+            "namespace": "typhoon",
+            "workload": "rain-v1",
+            "app": "rain",
+            "version": "v1",
+            "isUnused": true
+          }
+        },
+        {
+          "data": {
+            "id": "f994a6af32e216ae2a193c1febb7de74",
+            "nodeType": "app",
+            "namespace": "typhoon",
+            "workload": "rain-hefei-v1",
+            "app": "rain-hefei",
+            "version": "v1",
+            "isUnused": true
+          }
+        },
+        {
+          "data": {
+            "id": "a0ff1e33984425198a16bcdc28951497",
+            "nodeType": "app",
+            "namespace": "typhoon",
+            "workload": "rain-nanjing-v1",
+            "app": "rain-nanjing",
+            "version": "v1",
+            "isUnused": true
+          }
+        },
+        {
+          "data": {
+            "id": "acb045f1be03f6c4371523a714b83e98",
+            "nodeType": "app",
+            "namespace": "typhoon",
+            "workload": "rain-shanghai-v1",
+            "app": "rain-shanghai",
+            "version": "v1",
+            "isUnused": true
+          }
+        },
+        {
+          "data": {
+            "id": "6a337722137812a8da7c5211d96970d4",
+            "nodeType": "app",
+            "namespace": "typhoon",
+            "workload": "rain-suzhou-v1",
+            "app": "rain-suzhou",
+            "version": "v1",
+            "isUnused": true
+          }
+        },
+        {
+          "data": {
+            "id": "9a0539036cce6825a44e9fe875789edf",
+            "nodeType": "app",
+            "namespace": "typhoon",
+            "workload": "typhoon-v1",
+            "app": "typhoon",
+            "version": "v1",
+            "isUnused": true
+          }
+        },
+        {
+          "data": {
+            "id": "43630fd327907187cef9ee23e52cd354",
+            "nodeType": "app",
+            "namespace": "typhoon",
+            "workload": "wind-hefei-v1",
+            "app": "wind-hefei",
+            "version": "v1",
+            "isUnused": true
+          }
+        },
+        {
+          "data": {
+            "id": "394de955fea821285847cb8e5623f0b3",
+            "nodeType": "app",
+            "namespace": "typhoon",
+            "workload": "wind-nanjing-v1",
+            "app": "wind-nanjing",
+            "version": "v1",
+            "isUnused": true
+          }
+        },
+        {
+          "data": {
+            "id": "ae59cac7c6f767bc8c1cb7842b2e440c",
+            "nodeType": "app",
+            "namespace": "typhoon",
+            "workload": "wind-shanghai-v1",
+            "app": "wind-shanghai",
+            "version": "v1",
+            "isUnused": true
+          }
+        },
+        {
+          "data": {
+            "id": "fd1c4fdaab1a3f48bc63a4cc6f3ea5dc",
+            "nodeType": "app",
+            "namespace": "typhoon",
+            "workload": "wind-suzhou-v1",
+            "app": "wind-suzhou",
+            "version": "v1",
+            "isUnused": true
+          }
+        },
+        {
+          "data": {
+            "id": "b30b0078325bf2e1adb4d57c4c0c2665",
+            "nodeType": "unknown",
+            "namespace": "unknown",
+            "workload": "unknown",
+            "app": "unknown",
+            "version": "unknown",
+            "traffic": [
+              {
+                "protocol": "http",
+                "rates": {
+                  "httpOut": "0.04"
+                }
+              }
+            ],
+            "isInaccessible": true,
+            "isRoot": true
+          }
+        }
+      ],
+      "edges": [
+        {
+          "data": {
+            "id": "a8e584fc9b9ea0d9363ea2768ea36bb5",
+            "source": "04a111ebaebafa768f3ba016b385896e",
+            "target": "ce3cce5da6915fa273acde66a0dca3c9",
+            "traffic": {
+              "protocol": "http",
+              "rates": {
+                "http": "0.11",
+                "httpPercentReq": "100.0"
+              },
+              "responses": {
+                "200": {
+                  "-": "100.0"
+                }
+              }
+            },
+            "responseTime": "5",
+            "isMTLS": "0"
+          }
+        },
+        {
+          "data": {
+            "id": "cad0410cce40209d461280985663f947",
+            "source": "2d9aae72de2c64d8afa6d278eb0cd80e",
+            "target": "88fd3930f5124e18c5be8e77897d2731",
+            "traffic": {
+              "protocol": "http",
+              "rates": {
+                "http": "0.04",
+                "httpPercentReq": "100.0"
+              },
+              "responses": {
+                "200": {
+                  "-": "100.0"
+                }
+              }
+            },
+            "responseTime": "10",
+            "isMTLS": "0"
+          }
+        },
+        {
+          "data": {
+            "id": "5de67a17d61a855b3229342fb616da93",
+            "source": "4644c480a475285e60f5e9a615331b1f",
+            "target": "04a111ebaebafa768f3ba016b385896e",
+            "traffic": {
+              "protocol": "http",
+              "rates": {
+                "http": "0.07",
+                "httpPercentReq": "60.4"
+              },
+              "responses": {
+                "200": {
+                  "-": "100.0"
+                }
+              }
+            },
+            "isMTLS": "0"
+          }
+        },
+        {
+          "data": {
+            "id": "ba305934398f4ce8d0c49914ee932308",
+            "source": "4644c480a475285e60f5e9a615331b1f",
+            "target": "2d9aae72de2c64d8afa6d278eb0cd80e",
+            "traffic": {
+              "protocol": "http",
+              "rates": {
+                "http": "0.04",
+                "httpPercentReq": "39.6"
+              },
+              "responses": {
+                "200": {
+                  "-": "100.0"
+                }
+              }
+            },
+            "isMTLS": "0"
+          }
+        },
+        {
+          "data": {
+            "id": "5f4606decaa0b5ca46362001b137064a",
+            "source": "58ea764f64ed1520ace38f5eff24e1a2",
+            "target": "4644c480a475285e60f5e9a615331b1f",
+            "traffic": {
+              "protocol": "http",
+              "rates": {
+                "http": "0.04",
+                "httpPercentReq": "100.0"
+              },
+              "responses": {
+                "200": {
+                  "-": "100.0"
+                }
+              }
+            },
+            "responseTime": "10",
+            "isMTLS": "0"
+          }
+        },
+        {
+          "data": {
+            "id": "379016839c529d3ba81a00fcec53d998",
+            "source": "88fd3930f5124e18c5be8e77897d2731",
+            "target": "04a111ebaebafa768f3ba016b385896e",
+            "traffic": {
+              "protocol": "http",
+              "rates": {
+                "http": "0.04",
+                "httpPercentReq": "100.0"
+              },
+              "responses": {
+                "200": {
+                  "-": "100.0"
+                }
+              }
+            },
+            "isMTLS": "0"
+          }
+        },
+        {
+          "data": {
+            "id": "52197c1d105d973c756657e510682695",
+            "source": "b30b0078325bf2e1adb4d57c4c0c2665",
+            "target": "58ea764f64ed1520ace38f5eff24e1a2",
+            "traffic": {
+              "protocol": "http",
+              "rates": {
+                "http": "0.04",
+                "httpPercentReq": "100.0"
+              },
+              "responses": {
+                "200": {
+                  "-": "100.0"
+                }
+              }
+            },
+            "isMTLS": "0"
+          }
+        }
+      ]
+    }
+  }
